@@ -43,25 +43,32 @@ class AuthActivity : ComponentActivity() {
 
         //compose
         setContent {
-            Surface(modifier = Modifier.fillMaxSize()) {
-                TopBar(title = { Text("Test App!") })
-                val pwdState = remember {
-                    mutableStateOf("")
-                }
-                val pwdError = remember {
-                    mutableStateOf(false)
-                }
-                val userError = remember {
-                    mutableStateOf(false)
-                }
-                val userState = remember { mutableStateOf("") }
+            val pwdState = remember {
+                mutableStateOf("")
+            }
+            val pwdError = remember {
+                mutableStateOf(false)
+            }
+            val userError = remember {
+                mutableStateOf(false)
+            }
+            val userState = remember { mutableStateOf("") }
 
-                authView(pwdState,userError, pwdError, userState)
+            Surface(modifier = Modifier.fillMaxSize()) {
+
+                Column() {
+
+                    TopBar(title = { Text("Test App!") })
+                    authView(pwdState, userError, pwdError, userState)
+                }
             }
         }
 
         authViewModel =
-            ViewModelProvider(this, AuthViewModelFactory(this@AuthActivity))[AuthViewModel::class.java]
+            ViewModelProvider(
+                this,
+                AuthViewModelFactory(this@AuthActivity)
+            )[AuthViewModel::class.java]
 
         //error handling
 
@@ -124,7 +131,7 @@ class AuthActivity : ComponentActivity() {
         }
 
 
-        Box(contentAlignment = Alignment.Center) {
+        Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxHeight()) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
                 Text(
@@ -133,7 +140,7 @@ class AuthActivity : ComponentActivity() {
                     fontWeight = FontWeight.Bold,
                 )
 
-                LoginFields(userState,userError, pwdError, pwdState)
+                LoginFields(userState, userError, pwdError, pwdState)
 
                 Button(modifier = Modifier
                     .height(50.dp)

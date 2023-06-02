@@ -1,8 +1,13 @@
 package com.latest.tech.login
 
-class AuthRepo {
+import android.content.Context
+import android.widget.Toast
 
-    fun login(username:String,password:String){
+class AuthRepo(private val context: Context) {
+
+    fun login(username: String, password: String) {
+
+        Toast.makeText(context, "Login Successfully", Toast.LENGTH_SHORT).show()
 
     }
 }

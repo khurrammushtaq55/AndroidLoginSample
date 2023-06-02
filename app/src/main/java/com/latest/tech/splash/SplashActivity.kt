@@ -7,7 +7,6 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.latest.tech.databinding.ActivitySplashBinding
 import com.latest.tech.login.AuthActivity
-import com.latest.tech.ui.login.LoginActivity
 
 class SplashActivity: AppCompatActivity() {
 

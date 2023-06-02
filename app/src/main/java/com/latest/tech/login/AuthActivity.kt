@@ -1,11 +1,13 @@
 package com.latest.tech.login
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.latest.tech.databinding.ActivityAuthBinding
-import com.latest.tech.ui.login.afterTextChanged
 
 class AuthActivity : AppCompatActivity() {
 
@@ -35,10 +37,10 @@ class AuthActivity : AppCompatActivity() {
 
 
         //text change listener
-        userName.afterTextChanged {
+        userName.onTextChange {
             authViewModel.dataChange(userName.text.toString(),null)
         }
-        password.afterTextChanged {
+        password.onTextChange {
             authViewModel.dataChange(null,password.text.toString())
         }
 
@@ -50,4 +52,25 @@ class AuthActivity : AppCompatActivity() {
         }
 
     }
+}
+
+
+/**
+ * Extension function to simplify setting an afterTextChanged action to EditText components.
+ */
+
+fun EditText.onTextChange(afterTextChanged: (String) -> Unit){
+    this.addTextChangedListener(object :TextWatcher
+    {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+
+        override fun afterTextChanged(p0: Editable?) {
+            afterTextChanged.invoke(p0.toString())
+        }
+
+    })
 }
